@@ -1,0 +1,511 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/Cargo.toml
+workspace: /Users/johnstonskj/Projects/rust-rustfile/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/johnstonskj/Projects/rust-rustfile/rustfile/Cargo.toml
+workspace: /Users/johnstonskj/Projects/rust-rustfile/Cargo.toml
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2024 which implies `resolver = "3"`
+note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+note: to use the edition 2024 resolver, specify `workspace.resolver = "3"` in the workspace root's manifest
+note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+    Blocking waiting for file lock on package cache
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+ Downloading crates ...
+  Downloaded pest_generator v2.8.4
+  Downloaded pest_meta v2.8.4
+  Downloaded pest_derive v2.8.4
+  Downloaded cc v1.2.47
+  Downloaded pest v2.8.4
+    Blocking waiting for file lock on package cache
+   2.023176542s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint: fingerprint error for cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile)/Check { test: false }/TargetInner { name: "cargo-file", doc: true, ..: with_path("/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/src/main.rs", Edition2024) }
+   2.023191750s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/cargo-rustfile-300a2830f5efcdab/bin-cargo-file`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   2.025701667s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint: fingerprint error for rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("rustfile", ["lib"], "/Users/johnstonskj/Projects/rust-rustfile/rustfile/src/lib.rs", Edition2024) }
+   2.025709667s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/rustfile-c00193f400a0012e/lib-rustfile`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   9: cargo::ops::cargo_compile::compile_ws
+  10: cargo::ops::cargo_compile::compile_with_exec
+  11: cargo::ops::cargo_compile::compile
+  12: cargo::commands::check::exec
+  13: <cargo::cli::Exec>::exec
+  14: cargo::main
+  15: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  16: std::rt::lang_start::<()>::{closure#0}
+  17: std::rt::lang_start_internal
+  18: _main
+   2.026232167s  INFO prepare_target{force=false package_id=chumsky v0.11.2 target="chumsky"}: cargo::core::compiler::fingerprint: fingerprint error for chumsky v0.11.2/Check { test: false }/TargetInner { ..: lib_target("chumsky", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/chumsky-0.11.2/src/lib.rs", Edition2021) }
+   2.026236083s  INFO prepare_target{force=false package_id=chumsky v0.11.2 target="chumsky"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/chumsky-85df599b59f669cf/lib-chumsky`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  10: cargo::ops::cargo_compile::compile_ws
+  11: cargo::ops::cargo_compile::compile_with_exec
+  12: cargo::ops::cargo_compile::compile
+  13: cargo::commands::check::exec
+  14: <cargo::cli::Exec>::exec
+  15: cargo::main
+  16: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  17: std::rt::lang_start::<()>::{closure#0}
+  18: std::rt::lang_start_internal
+  19: _main
+   2.026535167s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="stacker"}: cargo::core::compiler::fingerprint: fingerprint error for stacker v0.1.22/Check { test: false }/TargetInner { tested: false, doctest: false, ..: lib_target("stacker", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/stacker-0.1.22/src/lib.rs", Edition2021) }
+   2.026538542s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="stacker"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/stacker-6a186de931bb2b3e/lib-stacker`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  11: cargo::ops::cargo_compile::compile_ws
+  12: cargo::ops::cargo_compile::compile_with_exec
+  13: cargo::ops::cargo_compile::compile
+  14: cargo::commands::check::exec
+  15: <cargo::cli::Exec>::exec
+  16: cargo::main
+  17: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  18: std::rt::lang_start::<()>::{closure#0}
+  19: std::rt::lang_start_internal
+  20: _main
+   2.027042958s  INFO prepare_target{force=false package_id=psm v0.1.28 target="psm"}: cargo::core::compiler::fingerprint: fingerprint error for psm v0.1.28/Check { test: false }/TargetInner { ..: lib_target("psm", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/psm-0.1.28/src/lib.rs", Edition2021) }
+   2.027048417s  INFO prepare_target{force=false package_id=psm v0.1.28 target="psm"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/psm-ef9ba90f5549aaea/lib-psm`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  12: cargo::ops::cargo_compile::compile_ws
+  13: cargo::ops::cargo_compile::compile_with_exec
+  14: cargo::ops::cargo_compile::compile
+  15: cargo::commands::check::exec
+  16: <cargo::cli::Exec>::exec
+  17: cargo::main
+  18: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  19: std::rt::lang_start::<()>::{closure#0}
+  20: std::rt::lang_start_internal
+  21: _main
+   2.027319083s  INFO prepare_target{force=false package_id=psm v0.1.28 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for psm v0.1.28/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/psm-0.1.28/build.rs", Edition2021) }
+   2.027322875s  INFO prepare_target{force=false package_id=psm v0.1.28 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/psm-249f04e6516808b1/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::custom_build::build_work
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: cargo::core::compiler::compile
+  12: cargo::core::compiler::compile
+  13: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  14: cargo::ops::cargo_compile::compile_ws
+  15: cargo::ops::cargo_compile::compile_with_exec
+  16: cargo::ops::cargo_compile::compile
+  17: cargo::commands::check::exec
+  18: <cargo::cli::Exec>::exec
+  19: cargo::main
+  20: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  21: std::rt::lang_start::<()>::{closure#0}
+  22: std::rt::lang_start_internal
+  23: _main
+   2.027581792s  INFO prepare_target{force=false package_id=psm v0.1.28 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for psm v0.1.28/Build/TargetInner { ..: custom_build_target("build-script-build", "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/psm-0.1.28/build.rs", Edition2021) }
+   2.027588625s  INFO prepare_target{force=false package_id=psm v0.1.28 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/psm-0ca0abec319eeada/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: cargo::core::compiler::compile
+  12: cargo::core::compiler::compile
+  13: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  14: cargo::ops::cargo_compile::compile_ws
+  15: cargo::ops::cargo_compile::compile_with_exec
+  16: cargo::ops::cargo_compile::compile
+  17: cargo::commands::check::exec
+  18: <cargo::cli::Exec>::exec
+  19: cargo::main
+  20: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  21: std::rt::lang_start::<()>::{closure#0}
+  22: std::rt::lang_start_internal
+  23: _main
+   2.027842458s  INFO prepare_target{force=false package_id=cc v1.2.47 target="cc"}: cargo::core::compiler::fingerprint: fingerprint error for cc v1.2.47/Build/TargetInner { ..: lib_target("cc", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cc-1.2.47/src/lib.rs", Edition2018) }
+   2.027847417s  INFO prepare_target{force=false package_id=cc v1.2.47 target="cc"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/cc-fbe1ba53eb9fe379/lib-cc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: cargo::core::compiler::compile
+  12: cargo::core::compiler::compile
+  13: cargo::core::compiler::compile
+  14: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  15: cargo::ops::cargo_compile::compile_ws
+  16: cargo::ops::cargo_compile::compile_with_exec
+  17: cargo::ops::cargo_compile::compile
+  18: cargo::commands::check::exec
+  19: <cargo::cli::Exec>::exec
+  20: cargo::main
+  21: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  22: std::rt::lang_start::<()>::{closure#0}
+  23: std::rt::lang_start_internal
+  24: _main
+   2.028187333s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for stacker v0.1.22/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/stacker-0.1.22/build.rs", Edition2021) }
+   2.028190500s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/stacker-e753e699848bc8d7/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::custom_build::build_work
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: cargo::core::compiler::compile
+  12: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  13: cargo::ops::cargo_compile::compile_ws
+  14: cargo::ops::cargo_compile::compile_with_exec
+  15: cargo::ops::cargo_compile::compile
+  16: cargo::commands::check::exec
+  17: <cargo::cli::Exec>::exec
+  18: cargo::main
+  19: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  20: std::rt::lang_start::<()>::{closure#0}
+  21: std::rt::lang_start_internal
+  22: _main
+   2.028276500s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for stacker v0.1.22/Build/TargetInner { ..: custom_build_target("build-script-build", "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/stacker-0.1.22/build.rs", Edition2021) }
+   2.028279250s  INFO prepare_target{force=false package_id=stacker v0.1.22 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/stacker-e91fbd0065e1656c/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: cargo::core::compiler::compile
+  12: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  13: cargo::ops::cargo_compile::compile_ws
+  14: cargo::ops::cargo_compile::compile_with_exec
+  15: cargo::ops::cargo_compile::compile
+  16: cargo::commands::check::exec
+  17: <cargo::cli::Exec>::exec
+  18: cargo::main
+  19: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  20: std::rt::lang_start::<()>::{closure#0}
+  21: std::rt::lang_start_internal
+  22: _main
+   2.028437083s  INFO prepare_target{force=false package_id=pest v2.8.4 target="pest"}: cargo::core::compiler::fingerprint: fingerprint error for pest v2.8.4/Check { test: false }/TargetInner { ..: lib_target("pest", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pest-2.8.4/src/lib.rs", Edition2021) }
+   2.028440125s  INFO prepare_target{force=false package_id=pest v2.8.4 target="pest"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/pest-fb233e3d345b92df/lib-pest`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  10: cargo::ops::cargo_compile::compile_ws
+  11: cargo::ops::cargo_compile::compile_with_exec
+  12: cargo::ops::cargo_compile::compile
+  13: cargo::commands::check::exec
+  14: <cargo::cli::Exec>::exec
+  15: cargo::main
+  16: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  17: std::rt::lang_start::<()>::{closure#0}
+  18: std::rt::lang_start_internal
+  19: _main
+   2.028608083s  INFO prepare_target{force=false package_id=pest_derive v2.8.4 target="pest_derive"}: cargo::core::compiler::fingerprint: fingerprint error for pest_derive v2.8.4/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("pest_derive", ["proc-macro"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pest_derive-2.8.4/src/lib.rs", Edition2021) }
+   2.028611875s  INFO prepare_target{force=false package_id=pest_derive v2.8.4 target="pest_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/pest_derive-553aa99b6dbed72c/lib-pest_derive`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  10: cargo::ops::cargo_compile::compile_ws
+  11: cargo::ops::cargo_compile::compile_with_exec
+  12: cargo::ops::cargo_compile::compile
+  13: cargo::commands::check::exec
+  14: <cargo::cli::Exec>::exec
+  15: cargo::main
+  16: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  17: std::rt::lang_start::<()>::{closure#0}
+  18: std::rt::lang_start_internal
+  19: _main
+   2.028736792s  INFO prepare_target{force=false package_id=pest v2.8.4 target="pest"}: cargo::core::compiler::fingerprint: fingerprint error for pest v2.8.4/Build/TargetInner { ..: lib_target("pest", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pest-2.8.4/src/lib.rs", Edition2021) }
+   2.028739708s  INFO prepare_target{force=false package_id=pest v2.8.4 target="pest"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/pest-03f77434405e992f/lib-pest`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  11: cargo::ops::cargo_compile::compile_ws
+  12: cargo::ops::cargo_compile::compile_with_exec
+  13: cargo::ops::cargo_compile::compile
+  14: cargo::commands::check::exec
+  15: <cargo::cli::Exec>::exec
+  16: cargo::main
+  17: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  18: std::rt::lang_start::<()>::{closure#0}
+  19: std::rt::lang_start_internal
+  20: _main
+   2.028888958s  INFO prepare_target{force=false package_id=pest_generator v2.8.4 target="pest_generator"}: cargo::core::compiler::fingerprint: fingerprint error for pest_generator v2.8.4/Build/TargetInner { ..: lib_target("pest_generator", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pest_generator-2.8.4/src/lib.rs", Edition2021) }
+   2.028892292s  INFO prepare_target{force=false package_id=pest_generator v2.8.4 target="pest_generator"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/pest_generator-db529fa154367fe2/lib-pest_generator`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  11: cargo::ops::cargo_compile::compile_ws
+  12: cargo::ops::cargo_compile::compile_with_exec
+  13: cargo::ops::cargo_compile::compile
+  14: cargo::commands::check::exec
+  15: <cargo::cli::Exec>::exec
+  16: cargo::main
+  17: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  18: std::rt::lang_start::<()>::{closure#0}
+  19: std::rt::lang_start_internal
+  20: _main
+   2.029209417s  INFO prepare_target{force=false package_id=pest_meta v2.8.4 target="pest_meta"}: cargo::core::compiler::fingerprint: fingerprint error for pest_meta v2.8.4/Build/TargetInner { ..: lib_target("pest_meta", ["lib"], "/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pest_meta-2.8.4/src/lib.rs", Edition2021) }
+   2.029212458s  INFO prepare_target{force=false package_id=pest_meta v2.8.4 target="pest_meta"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/pest_meta-0acc9b86d4a94da2/lib-pest_meta`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: cargo::core::compiler::compile
+   9: cargo::core::compiler::compile
+  10: cargo::core::compiler::compile
+  11: <cargo::core::compiler::build_runner::BuildRunner>::compile
+  12: cargo::ops::cargo_compile::compile_ws
+  13: cargo::ops::cargo_compile::compile_with_exec
+  14: cargo::ops::cargo_compile::compile
+  15: cargo::commands::check::exec
+  16: <cargo::cli::Exec>::exec
+  17: cargo::main
+  18: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  19: std::rt::lang_start::<()>::{closure#0}
+  20: std::rt::lang_start_internal
+  21: _main
+   2.031869958s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint: fingerprint error for cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile)/Check { test: true }/TargetInner { name: "cargo-file", doc: true, ..: with_path("/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/src/main.rs", Edition2024) }
+   2.031878792s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/cargo-rustfile-c618865701a4c034/test-bin-cargo-file`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   2.032338792s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint: fingerprint error for rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("rustfile", ["lib"], "/Users/johnstonskj/Projects/rust-rustfile/rustfile/src/lib.rs", Edition2024) }
+   2.032344333s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/rustfile-25326cd0d4bfa0f6/test-lib-rustfile`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   Compiling cc v1.2.47
+   Compiling pest v2.8.4
+   Compiling psm v0.1.28
+   Compiling stacker v0.1.22
+   Compiling pest_meta v2.8.4
+   Compiling pest_generator v2.8.4
+   Compiling pest_derive v2.8.4
+    Checking chumsky v0.11.2
+    Checking rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)
+error: could not compile `rustfile` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `rustfile` (lib) due to 1 previous error

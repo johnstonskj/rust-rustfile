@@ -1,0 +1,122 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/Cargo.toml
+workspace: /Users/johnstonskj/Projects/rust-rustfile/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /Users/johnstonskj/Projects/rust-rustfile/rustfile/Cargo.toml
+workspace: /Users/johnstonskj/Projects/rust-rustfile/Cargo.toml
+warning: virtual workspace defaulting to `resolver = "1"` despite one or more workspace members being on edition 2024 which implies `resolver = "3"`
+note: to keep the current resolver, specify `workspace.resolver = "1"` in the workspace root's manifest
+note: to use the edition 2024 resolver, specify `workspace.resolver = "3"` in the workspace root's manifest
+note: for more details see https://doc.rust-lang.org/cargo/reference/resolver.html#resolver-versions
+    Updating crates.io index
+    Blocking waiting for file lock on package cache
+     Locking 121 packages to latest compatible versions
+      Adding generic-array v0.14.7 (available: v0.14.9)
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+   4.478884458s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint: fingerprint error for cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile)/Check { test: false }/TargetInner { name: "cargo-file", doc: true, ..: with_path("/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/src/main.rs", Edition2024) }
+   4.478900125s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/cargo-rustfile-300a2830f5efcdab/bin-cargo-file`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   4.481107625s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint: fingerprint error for rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("rustfile", ["lib"], "/Users/johnstonskj/Projects/rust-rustfile/rustfile/src/lib.rs", Edition2024) }
+   4.481113833s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/rustfile-c00193f400a0012e/lib-rustfile`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: cargo::core::compiler::compile
+   8: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   9: cargo::ops::cargo_compile::compile_ws
+  10: cargo::ops::cargo_compile::compile_with_exec
+  11: cargo::ops::cargo_compile::compile
+  12: cargo::commands::check::exec
+  13: <cargo::cli::Exec>::exec
+  14: cargo::main
+  15: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  16: std::rt::lang_start::<()>::{closure#0}
+  17: std::rt::lang_start_internal
+  18: _main
+   4.484083958s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint: fingerprint error for cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile)/Check { test: true }/TargetInner { name: "cargo-file", doc: true, ..: with_path("/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile/src/main.rs", Edition2024) }
+   4.484087333s  INFO prepare_target{force=false package_id=cargo-rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/cargo-rustfile) target="cargo-file"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/cargo-rustfile-c618865701a4c034/test-bin-cargo-file`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+   4.484393000s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint: fingerprint error for rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)/Check { test: true }/TargetInner { name_inferred: true, ..: lib_target("rustfile", ["lib"], "/Users/johnstonskj/Projects/rust-rustfile/rustfile/src/lib.rs", Edition2024) }
+   4.484396542s  INFO prepare_target{force=false package_id=rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile) target="rustfile"}: cargo::core::compiler::fingerprint:     err: failed to read `/Users/johnstonskj/Projects/rust-rustfile/target/debug/.fingerprint/rustfile-25326cd0d4bfa0f6/test-lib-rustfile`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: std::backtrace::Backtrace::create
+   1: std::backtrace::Backtrace::capture
+   2: cargo_util::paths::read_bytes
+   3: cargo_util::paths::read
+   4: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   5: cargo::core::compiler::fingerprint::prepare_target
+   6: cargo::core::compiler::compile
+   7: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   8: cargo::ops::cargo_compile::compile_ws
+   9: cargo::ops::cargo_compile::compile_with_exec
+  10: cargo::ops::cargo_compile::compile
+  11: cargo::commands::check::exec
+  12: <cargo::cli::Exec>::exec
+  13: cargo::main
+  14: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  15: std::rt::lang_start::<()>::{closure#0}
+  16: std::rt::lang_start_internal
+  17: _main
+    Checking rustfile v0.1.0 (/Users/johnstonskj/Projects/rust-rustfile/rustfile)
+error: could not compile `rustfile` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `rustfile` (lib) due to 1 previous error

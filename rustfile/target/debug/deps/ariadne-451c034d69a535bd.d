@@ -1,0 +1,10 @@
+/Users/johnstonskj/Projects/rust-rustfile/rustfile/target/debug/deps/ariadne-451c034d69a535bd.d: /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/lib.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/display.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/draw.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/source.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/write.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/../README.md
+
+/Users/johnstonskj/Projects/rust-rustfile/rustfile/target/debug/deps/libariadne-451c034d69a535bd.rmeta: /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/lib.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/display.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/draw.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/source.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/write.rs /Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/../README.md
+
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/lib.rs:
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/display.rs:
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/draw.rs:
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/source.rs:
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/write.rs:
+/Users/johnstonskj/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ariadne-0.6.0/src/../README.md:

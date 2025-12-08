@@ -1,0 +1,46 @@
+#
+# Toolchain Options:
+#
+# * `components: ['name', ...]`: add the listed components to the toolchain at install time.
+# * `default`: bool: set this toolchain as the default.
+# * `profile: 'name'`: use profile, one of 'minimal', 'default', or 'complete'.
+# * `targets: ['name']`: add the listed targets to the toolchain at install time.
+#
+toolchain 'stable', profile: 'complete', default: true
+toolchain 'nightly'
+
+#
+# Component Options:
+#
+# * `target: 'name'`:
+# * `toolchain: 'name'`:
+#
+component 'rust-src'
+component 'clippy-preview'
+
+#
+# Command Options:
+#
+# all-features: bool:
+# branch: "...":
+# debug: bool:
+# features: ['name', ...]:
+# frozen: bool:
+# git: <url>:
+# index: "..."
+# locked: bool:
+# no-default-features: bool:
+# offline: bool:
+# path: "...":
+# registry: "...":
+# rev: "...":
+# tag: "...":
+# target: 'name':
+#
+command 'cargo-info'
+command 'cargo-tarpaulin'
+command 'cargo-update'
+command 'cargo-watch'
+command 'nu'
+command 'nu-lint'
+command 'release-plz', locked: true

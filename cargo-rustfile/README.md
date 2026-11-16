@@ -4,12 +4,13 @@ Rust equivalent of homebrew's Brewfile configuration
 
 [![Apache-2.0 License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![MIT License](https://img.shields.io/badge/license-mit-118811.svg)](https://opensource.org/license/mit)
+[![crates.io](https://img.shields.io/crates/v/cargo-rustfile.svg)](https://crates.io/crates/cargo-rustfile)
+[![GitHub stars](https://img.shields.io/github/stars/johnstonskj/rust-cargo-rustfile.svg)](<https://github.com/johnstonskj/rust-cargo-rustfile/stargazers>)
+
 [![Rust Workflow](https://github.com/johnstonskj/rust-cargo-rustfile/actions/workflows/rust.yml/badge.svg)](<https://github.com/johnstonskj/rust-cargo-rustfile/actions/workflows/rust.yml>)
 [![Security Audit Workflow](https://github.com/johnstonskj/rust-cargo-rustfile/actions/workflows/security-audit.yml/badge.svg)](<https://github.com/johnstonskj/rust-cargo-rustfile/actions/workflows/security-audit.yml>)
 [![Coverage Status](https://codecov.io/github/johnstonskj/rust-cargo-rustfile/graph/badge.svg?token=1HGN6M4KIT)](<https://codecov.io/github/johnstonskj/rust-cargo-rustfile>)
-[![crates.io](https://img.shields.io/crates/v/cargo-rustfile.svg)](https://crates.io/crates/cargo-rustfile)
 [![docs.rs](https://docs.rs/xml_dom/badge.svg)](https://docs.rs/cargo-rustfile)
-[![GitHub stars](https://img.shields.io/github/stars/johnstonskj/rust-cargo-rustfile.svg)](<https://github.com/johnstonskj/rust-cargo-rustfile/stargazers>)
 
 Add a longer description here.
 

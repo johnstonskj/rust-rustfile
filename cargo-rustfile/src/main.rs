@@ -174,10 +174,7 @@ impl Command for Commands {
         match self {
             Self::Find => {
                 if let Some(rustfile_path) = Rustfile::find_rustfile() {
-                    println!(
-                        "Your default Rustfile is `{}`",
-                        rustfile_path.display()
-                    );
+                    println!("Your default Rustfile is `{}`", rustfile_path.display());
                 } else {
                     println!("No Rustfile found in any default location.");
                 }

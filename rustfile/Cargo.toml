@@ -22,7 +22,7 @@ serde = []
 
 [dependencies]
 ariadne = "0.6.0"
-chumsky = "0.11.2"
+chumsky = "0.12.0"
 flat_error = "0.3"
 regex = "1.12"
 tracing = "0.1"

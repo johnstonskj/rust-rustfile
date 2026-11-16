@@ -1,12 +1,10 @@
 [package]
-authors = ["Simon Johnston <johnstonskj@gmail.com>"]
 name = "cargo-rustfile"
 version = "0.1.0"
 description = """Rust equivalent of homebrew's Brewfile configuration"""
 documentation = "https://docs.rs/cargo-rustfile/"
 repository = "https://github.com/johnstonskj/rust-cargo-rustfile.git"
 license = "MIT/Apache-2.0"
-readme = "README.md"
 edition = "2024"
 publish = true
 
@@ -17,13 +15,16 @@ targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
 clap = { version = "4.5", features = ["derive", "env", "cargo", "wrap_help"] }
-clap-verbosity-flag = { version = "3.0", default-features = false, features = ["tracing"] }
-clap_complete = "4.5"
+clap-verbosity-flag = { version = "3.0", default-features = false, features = [
+    "tracing",
+] }
 flat_error = "0.3"
 regex = "1.12"
-rustfile = { version = "0.1", features = ["command-line"], path = "../rustfile" }
+rustfile = { version = "0.1", features = [
+    "command-line",
+], path = "../rustfile" }
 tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = [ "ansi", "env-filter" ] }
+tracing-subscriber = { version = "0.3", features = ["ansi", "env-filter"] }
 
 [[bin]]
 name = "cargo-rustfile"

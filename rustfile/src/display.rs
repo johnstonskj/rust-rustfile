@@ -4,7 +4,6 @@ use flat_error::FlatError;
 
 use crate::{error::Error, model::*};
 
-
 // ------------------------------------------------------------------------------------------------
 // Public Types
 // ------------------------------------------------------------------------------------------------
@@ -17,7 +16,6 @@ pub enum SortOrder {
     Descending,
 }
 
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum ArgumentDisplay {
     Hide,
@@ -29,15 +27,23 @@ pub enum ArgumentDisplay {
 // Public Functions
 // ------------------------------------------------------------------------------------------------
 
-pub fn print_as_tree(rustfile: &Rustfile, sort_order: Option<SortOrder>, arguments: ArgumentDisplay) -> Result<(), Error> {
+pub fn print_as_tree(
+    rustfile: &Rustfile,
+    sort_order: Option<SortOrder>,
+    arguments: ArgumentDisplay,
+) -> Result<(), Error> {
     let mut stdout = std::io::stdout().lock();
     write_as_tree(rustfile, sort_order, arguments, &mut stdout)?;
     writeln!(&mut stdout)?;
     Ok(())
 }
 
-
-pub fn write_as_tree<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrder>, arguments: ArgumentDisplay, w: &mut W) -> Result<(), Error> {
+pub fn write_as_tree<W: Write>(
+    rustfile: &Rustfile,
+    sort_order: Option<SortOrder>,
+    arguments: ArgumentDisplay,
+    w: &mut W,
+) -> Result<(), Error> {
     let mut entries: Vec<_> = rustfile.iter().collect();
 
     if let Some(order) = sort_order {
@@ -64,7 +70,14 @@ pub fn write_as_tree<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrder
                 }
             }
             ArgumentDisplay::Expand => {
-                writeln!(w, "{}{} {}{}", prefix, entry.kind(), entry.name(), entry.arguments())?;
+                writeln!(
+                    w,
+                    "{}{} {}{}",
+                    prefix,
+                    entry.kind(),
+                    entry.name(),
+                    entry.arguments()
+                )?;
             }
         }
     }
@@ -72,15 +85,23 @@ pub fn write_as_tree<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrder
     Ok(())
 }
 
-pub fn print_as_table(rustfile: &Rustfile, sort_order: Option<SortOrder>, arguments: ArgumentDisplay) -> Result<(), Error> {
+pub fn print_as_table(
+    rustfile: &Rustfile,
+    sort_order: Option<SortOrder>,
+    arguments: ArgumentDisplay,
+) -> Result<(), Error> {
     let mut stdout = std::io::stdout().lock();
     write_as_table(rustfile, sort_order, arguments, &mut stdout)?;
     writeln!(&mut stdout)?;
     Ok(())
 }
 
-
-pub fn write_as_table<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrder>, arguments: ArgumentDisplay, w: &mut W) -> Result<(), Error> {
+pub fn write_as_table<W: Write>(
+    rustfile: &Rustfile,
+    sort_order: Option<SortOrder>,
+    arguments: ArgumentDisplay,
+    w: &mut W,
+) -> Result<(), Error> {
     let mut entries: Vec<_> = rustfile.iter().collect();
 
     if let Some(order) = sort_order {
@@ -91,12 +112,35 @@ pub fn write_as_table<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrde
     }
 
     // Calculate column widths
-    let kind_width = entries.iter().map(|e| e.kind().to_string().len()).max().unwrap_or(4);
-    let name_width = entries.iter().map(|e| e.name().to_string().len()).max().unwrap_or(4);
+    let kind_width = entries
+        .iter()
+        .map(|e| e.kind().to_string().len())
+        .max()
+        .unwrap_or(4);
+    let name_width = entries
+        .iter()
+        .map(|e| e.name().to_string().len())
+        .max()
+        .unwrap_or(4);
 
     // Print header
-    writeln!(w, "{:<kind_width$}  {:<name_width$}  Arguments", "Kind", "Name", kind_width = kind_width, name_width = name_width)?;
-    writeln!(w, "{:-<kind_width$}  {:-<name_width$}  {:-<9}", "", "", "", kind_width = kind_width, name_width = name_width)?;
+    writeln!(
+        w,
+        "{:<kind_width$}  {:<name_width$}  Arguments",
+        "Kind",
+        "Name",
+        kind_width = kind_width,
+        name_width = name_width
+    )?;
+    writeln!(
+        w,
+        "{:-<kind_width$}  {:-<name_width$}  {:-<9}",
+        "",
+        "",
+        "",
+        kind_width = kind_width,
+        name_width = name_width
+    )?;
 
     // Print entries
     for entry in entries {
@@ -113,7 +157,15 @@ pub fn write_as_table<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrde
             ArgumentDisplay::Expand => entry.arguments().to_string(),
         };
 
-        writeln!(w, "{:<kind_width$}  {:<name_width$}  {}", entry.kind(), entry.name(), args_str, kind_width = kind_width, name_width = name_width)?;
+        writeln!(
+            w,
+            "{:<kind_width$}  {:<name_width$}  {}",
+            entry.kind(),
+            entry.name(),
+            args_str,
+            kind_width = kind_width,
+            name_width = name_width
+        )?;
     }
 
     Ok(())
@@ -125,10 +177,14 @@ pub fn write_as_table<W: Write>(rustfile: &Rustfile, sort_order: Option<SortOrde
 
 impl Display for SortOrder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            Self::Ascending => "asc[ending]",
-            Self::Descending => "desc[ending]",
-        })
+        write!(
+            f,
+            "{}",
+            match self {
+                Self::Ascending => "asc[ending]",
+                Self::Descending => "desc[ending]",
+            }
+        )
     }
 }
 
@@ -139,14 +195,15 @@ impl FromStr for SortOrder {
         match s {
             "asc" | "ascending" => Ok(Self::Ascending),
             "desc" | "descending" => Ok(Self::Descending),
-            _ => 
-                Err(Error::ValueParserError { 
-                        type_name: "SortOrder", 
-                        source: FlatError::new(
-                            "SortOrder", 
-                            format!("The string value {s:?} is not a valid representation for type `SortOrder`."),
-                    ) 
-                }),
+            _ => Err(Error::ValueParserError {
+                type_name: "SortOrder",
+                source: FlatError::new(
+                    "SortOrder",
+                    format!(
+                        "The string value {s:?} is not a valid representation for type `SortOrder`."
+                    ),
+                ),
+            }),
         }
     }
 }

@@ -1,12 +1,10 @@
 [package]
-authors = ["Simon Johnston <johnstonskj@gmail.com>"]
 name = "rustfile"
 version = "0.1.0"
 description = """Library for a Rust equivalent of homebrew's Brewfile configuration"""
 documentation = "https://docs.rs/rustfile/"
 repository = "https://github.com/johnstonskj/rust-rustfile.git"
 license = "MIT/Apache-2.0"
-readme = "README.md"
 edition = "2024"
 publish = true
 

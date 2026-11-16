@@ -3,7 +3,7 @@ use regex::Regex;
 use rustfile::{error::Error, model::EntryKind, parser::parse_str, prelude::*};
 use std::{env, path::PathBuf, process::ExitCode};
 use tracing::{error, level_filters::LevelFilter, trace};
-use tracing_subscriber::{filter::EnvFilter};
+use tracing_subscriber::filter::EnvFilter;
 
 // use clap_complete::aot::{generate, Generator, Shell};
 
@@ -160,7 +160,7 @@ impl Command for Cli {
     type Error = Error;
 
     fn execute(&self) -> Result<Self::Output, Self::Error> {
-        println!("VERBOSITY::{:?}", &self.verbosity);
+        println!("VERBOSITY::{:?}", self.verbosity);
         init_tracing(self.verbosity, Some("rustfile"))?;
         self.cmd.execute()
     }
@@ -174,7 +174,10 @@ impl Command for Commands {
         match self {
             Self::Find => {
                 if let Some(rustfile_path) = Rustfile::find_rustfile() {
-                    println!("Your default Rustfile is `{}`", rustfile_path.display().to_string());
+                    println!(
+                        "Your default Rustfile is `{}`",
+                        rustfile_path.display()
+                    );
                 } else {
                     println!("No Rustfile found in any default location.");
                 }
@@ -205,28 +208,30 @@ impl Command for Commands {
 // Private Functions
 // ------------------------------------------------------------------------------------------------
 
-fn init_tracing(log_level: clap_verbosity_flag::Verbosity, library_root: Option<&str>) -> Result<(), Error> {
-    let filter = EnvFilter::from_default_env()
-        .add_directive(
-            format!("{}={}", module_path!(), log_level)
+fn init_tracing(
+    log_level: clap_verbosity_flag::Verbosity,
+    library_root: Option<&str>,
+) -> Result<(), Error> {
+    let filter = EnvFilter::from_default_env().add_directive(
+        format!("{}={}", module_path!(), log_level)
+            .parse()
+            .map_err(|e| {
+                error!("Error parsing trace env-filter expression; source: {e}");
+                Error::from(e)
+            })?,
+    );
+    let filter = if let Some(library_root) = library_root {
+        filter.add_directive(
+            format!("{library_root}={}", log_level)
                 .parse()
                 .map_err(|e| {
                     error!("Error parsing trace env-filter expression; source: {e}");
                     Error::from(e)
                 })?,
-        );
-        let filter = if let Some(library_root) = library_root {
-            filter.add_directive(
-                format!("{library_root}={}", log_level)
-                    .parse()
-                    .map_err(|e| {
-                        error!("Error parsing trace env-filter expression; source: {e}");
-                        Error::from(e)
-                    })?,
         )
-        } else {
-            filter
-        };
+    } else {
+        filter
+    };
 
     tracing_subscriber::fmt()
         .with_env_filter(filter)

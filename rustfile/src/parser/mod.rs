@@ -1,10 +1,9 @@
-use std::{
-    collections::HashSet,
-    fmt::Display,
-};
 use crate::{
     error::Error,
-    model::{Arguments, CommandArguments, ComponentArguments, Entry, EntryKind, Identifier, Name, Rustfile, ToolchainArguments, Value},
+    model::{
+        Arguments, CommandArguments, ComponentArguments, Entry, EntryKind, Identifier, Name,
+        Rustfile, ToolchainArguments, Value,
+    },
 };
 use ariadne::{Color, Label, Report, ReportKind, sources};
 use chumsky::{
@@ -12,8 +11,9 @@ use chumsky::{
     input::{SliceInput, StrInput, ValueInput},
     label::LabelError,
     prelude::*,
-    text::{TextExpected, Char},
+    text::{Char, TextExpected},
 };
+use std::{collections::HashSet, fmt::Display};
 use url::Url;
 
 // ------------------------------------------------------------------------------------------------
@@ -21,11 +21,11 @@ use url::Url;
 // ------------------------------------------------------------------------------------------------
 
 pub fn parse_str(src: &str, file_name: &str) -> Result<Rustfile, Error> {
-    let (tokens,  errs) = rustfile_lexer().parse(src).into_output_errors();
+    let (tokens, errs) = rustfile_lexer().parse(src).into_output_errors();
 
     let parse_errs = if let Some(tokens) = &tokens {
         let (entries, parse_errs) = rustfile_parser()
-//            .map_with(|ast: (Vec<Entry<'src>>, SimpleSpan), e: extra::Err<Rich<'_, Token<'src>, Span>>| (ast, e.span()))
+            //            .map_with(|ast: (Vec<Entry<'src>>, SimpleSpan), e: extra::Err<Rich<'_, Token<'src>, Span>>| (ast, e.span()))
             .parse(
                 tokens
                     .as_slice()
@@ -33,11 +33,13 @@ pub fn parse_str(src: &str, file_name: &str) -> Result<Rustfile, Error> {
             )
             .into_output_errors();
 
-            if let Some(entries) = entries && parse_errs.is_empty() {
-                return Ok(Rustfile::from(verify_entries(entries, file_name)?));
-            } else {
-                parse_errs
-            }
+        if let Some(entries) = entries
+            && parse_errs.is_empty()
+        {
+            return Ok(Rustfile::from(verify_entries(entries, file_name)?));
+        } else {
+            parse_errs
+        }
     } else {
         Vec::default()
     };
@@ -52,24 +54,27 @@ pub fn parse_str(src: &str, file_name: &str) -> Result<Rustfile, Error> {
                 .map(|e| e.map_token(|tok| tok.to_string())),
         )
         .for_each(|e| {
-            Report::build(ReportKind::Error, (file_name.clone(), e.span().into_range()))
-                .with_config(ariadne::Config::new().with_index_type(ariadne::IndexType::Byte))
-                .with_message(e.to_string())
-                .with_label(
-                    Label::new((file_name.clone(), e.span().into_range()))
-                        .with_message(e.reason().to_string())
-                        .with_color(Color::Red),
-                )
-                .with_labels(e.contexts().map(|(label, span)| {
-                    Label::new((file_name.clone(), span.into_range()))
-                        .with_message(format!("while parsing this {label}"))
-                        .with_color(Color::Yellow)
-                }))
-                .finish()
-                .print(sources([(file_name.clone(), src)]))
-                .unwrap()
+            Report::build(
+                ReportKind::Error,
+                (file_name.clone(), e.span().into_range()),
+            )
+            .with_config(ariadne::Config::new().with_index_type(ariadne::IndexType::Byte))
+            .with_message(e.to_string())
+            .with_label(
+                Label::new((file_name.clone(), e.span().into_range()))
+                    .with_message(e.reason().to_string())
+                    .with_color(Color::Red),
+            )
+            .with_labels(e.contexts().map(|(label, span)| {
+                Label::new((file_name.clone(), span.into_range()))
+                    .with_message(format!("while parsing this {label}"))
+                    .with_color(Color::Yellow)
+            }))
+            .finish()
+            .print(sources([(file_name.clone(), src)]))
+            .unwrap()
         });
-        Err(Error::SourceParserError)
+    Err(Error::SourceParserError)
 }
 
 fn verify_entries(entries: Vec<Spanner<EntryAst>>, _file_name: &str) -> Result<Vec<Entry>, Error> {
@@ -89,136 +94,172 @@ fn verify_entries(entries: Vec<Spanner<EntryAst>>, _file_name: &str) -> Result<V
                 let mut args: ToolchainArguments = ToolchainArguments::default();
                 for argument in entry.node.arguments.into_iter() {
                     match argument.node.name.node.as_ref() {
-                        "profile" => if let Some(name) = argument.node.value.node.into_name() {
-                            args.set_profile(name);
-                        } else {
-                            panic!("invalid type");
+                        "profile" => {
+                            if let Some(name) = argument.node.value.node.into_name() {
+                                args.set_profile(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "components" => if let Some(name) = argument.node.value.node.into_name_list() {
-                            args.set_components(name);
-                        } else {
-                            panic!("invalid type");
+                        "components" => {
+                            if let Some(name) = argument.node.value.node.into_name_list() {
+                                args.set_components(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "targets" => if let Some(name) = argument.node.value.node.into_name_list() {
-                            args.set_targets(name);
-                        } else {
-                            panic!("invalid type");
+                        "targets" => {
+                            if let Some(name) = argument.node.value.node.into_name_list() {
+                                args.set_targets(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
                         _ => panic!("invalid name"),
                     }
                 }
                 args.into()
-            },
+            }
             EntryKind::Component => {
                 let mut args: ComponentArguments = ComponentArguments::default();
                 for argument in entry.node.arguments.into_iter() {
                     match argument.node.name.node.as_ref() {
-                        "target" => if let Some(name) = argument.node.value.node.into_name() {
-                            args.set_target(name);
-                        } else {
-                            panic!("invalid type");
+                        "target" => {
+                            if let Some(name) = argument.node.value.node.into_name() {
+                                args.set_target(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "toolchain" => if let Some(name) = argument.node.value.node.into_name() {
-                            args.set_toolchain(name);
-                        } else {
-                            panic!("invalid type");
+                        "toolchain" => {
+                            if let Some(name) = argument.node.value.node.into_name() {
+                                args.set_toolchain(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
                         _ => panic!("invalid name"),
                     }
                 }
                 args.into()
-            },
+            }
             EntryKind::Command => {
                 let mut args: CommandArguments = CommandArguments::default();
                 for argument in entry.node.arguments.into_iter() {
                     match argument.node.name.node.as_ref() {
-                        "all_features" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_all_features(value);
-                        } else {
-                            panic!("invalid type");
+                        "all_features" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_all_features(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "branch" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_branch(value);
-                        } else {
-                            panic!("invalid type");
+                        "branch" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_branch(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "debug" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_debug(value);
-                        } else {
-                            panic!("invalid type");
+                        "debug" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_debug(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "features" => if let Some(name_list) = argument.node.value.node.into_name_list() {
-                            args.set_features(name_list);
-                        } else {
-                            panic!("invalid type");
+                        "features" => {
+                            if let Some(name_list) = argument.node.value.node.into_name_list() {
+                                args.set_features(name_list);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "frozen" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_frozen(value);
-                        } else {
-                            panic!("invalid type");
+                        "frozen" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_frozen(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "git" => if let Some(value) = argument.node.value.node.into_url() {
-                            args.set_git(value);
-                        } else {
-                            panic!("invalid type");
+                        "git" => {
+                            if let Some(value) = argument.node.value.node.into_url() {
+                                args.set_git(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "index" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_index(value);
-                        } else {
-                            panic!("invalid type");
+                        "index" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_index(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "locked" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_locked(value);
-                        } else {
-                            panic!("invalid type");
+                        "locked" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_locked(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "no_default_features" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_no_default_features(value);
-                        } else {
-                            panic!("invalid type");
+                        "no_default_features" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_no_default_features(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "offline" => if let Some(value) = argument.node.value.node.into_boolean() {
-                            args.set_offline(value);
-                        } else {
-                            panic!("invalid type");
+                        "offline" => {
+                            if let Some(value) = argument.node.value.node.into_boolean() {
+                                args.set_offline(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "path" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_path(value);
-                        } else {
-                            panic!("invalid type");
+                        "path" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_path(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "registry" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_registry(value);
-                        } else {
-                            panic!("invalid type");
+                        "registry" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_registry(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "rev" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_rev(value);
-                        } else {
-                            panic!("invalid type");
+                        "rev" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_rev(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "tag" => if let Some(value) = argument.node.value.node.into_string() {
-                            args.set_tag(value);
-                        } else {
-                            panic!("invalid type");
+                        "tag" => {
+                            if let Some(value) = argument.node.value.node.into_string() {
+                                args.set_tag(value);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
-                        "target" => if let Some(name) = argument.node.value.node.into_name() {
-                            args.set_target(name);
-                        } else {
-                            panic!("invalid type");
+                        "target" => {
+                            if let Some(name) = argument.node.value.node.into_name() {
+                                args.set_target(name);
+                            } else {
+                                panic!("invalid type");
+                            }
                         }
                         _ => panic!("invalid name"),
                     }
                 }
                 args.into()
-            },
+            }
         };
 
-        new_entries.push(Entry::new(
-            0,
-            entry.node.name.node,
-            arguments,
-        ));
+        new_entries.push(Entry::new(0, entry.node.name.node, arguments));
     }
 
     Ok(new_entries)
@@ -262,8 +303,8 @@ enum Token {
 
 #[derive(Clone, Debug, PartialEq)]
 pub(crate) struct Spanner<T> {
-    pub(crate)node: T,
-    pub(crate)span: Span,
+    pub(crate) node: T,
+    pub(crate) span: Span,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -399,14 +440,14 @@ where
     I: StrInput<'src>,
     I::Token: Char + 'src,
     E: ParserExtra<'src, I>,
-    E::Error: LabelError<'src, I, TextExpected<'src, I>>,
+    E::Error: LabelError<'src, I, TextExpected<I>>,
 {
     any()
-        .filter(|c: &I::Token| c.to_ascii().map_or(false, |i| i.is_ascii_alphabetic()))
+        .filter(|c: &I::Token| c.to_ascii().is_some_and(|i| i.is_ascii_alphabetic()))
         .then(
             any()
                 .filter(|c: &I::Token| {
-                    c.to_ascii().map_or(false, |i| {
+                    c.to_ascii().is_some_and(|i| {
                         i.is_ascii_alphanumeric() || extra_chars.contains(&(i as char))
                     })
                 })
@@ -417,20 +458,24 @@ where
 
 impl Display for Token {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            Token::Ident(identifier) => format!("Ident::({identifier})"),
-            Token::Boolean(b) => format!("Boolean::({b})"),
-            Token::Integer(i) => format!("Integer({i})"),
-            Token::Float(f) => format!("Float({f})"),
-            Token::String(cow) => format!("String({cow})"),
-            Token::Url(url) => format!("Url({url})"),
-            Token::Name(name) => format!("Name({name})"),
-            Token::EntryKind(entry_kind) => format!("EntryKind({entry_kind})"),
-            Token::ListStart => format!("ListStart::`[`"),
-            Token::ListSeparator => format!("ListSeparator::`,`"),
-            Token::ListEnd => format!("ListEnd::`]"),
-            Token::PairNameSymbol => format!("PairNameSymbol::`:"),
-        })
+        write!(
+            f,
+            "{}",
+            match self {
+                Token::Ident(identifier) => format!("Ident::({identifier})"),
+                Token::Boolean(b) => format!("Boolean::({b})"),
+                Token::Integer(i) => format!("Integer({i})"),
+                Token::Float(f) => format!("Float({f})"),
+                Token::String(cow) => format!("String({cow})"),
+                Token::Url(url) => format!("Url({url})"),
+                Token::Name(name) => format!("Name({name})"),
+                Token::EntryKind(entry_kind) => format!("EntryKind({entry_kind})"),
+                Token::ListStart => "ListStart::`[`".to_string(),
+                Token::ListSeparator => "ListSeparator::`,`".to_string(),
+                Token::ListEnd => "ListEnd::`]`".to_string(),
+                Token::PairNameSymbol => "PairNameSymbol::`:`".to_string(),
+            }
+        )
     }
 }
 
@@ -444,11 +489,17 @@ where
     I: ValueInput<'tokens, Token = Token, Span = Span>,
 {
     let ident = select! { Token::Ident(ident) => ident }
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("Identifier");
 
     let name = select! { Token::Name(name) => name }
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("Name");
 
     let name_list = select! { Token::Name(name) => name, }
@@ -467,17 +518,24 @@ where
         Token::Url(v) => Value::Url(v),
         Token::Name(v) => Value::Name(v),
     }
-        .labelled("AtomicValue");
+    .labelled("AtomicValue");
 
-    let value = atomic_value.or(name_list)
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+    let value = atomic_value
+        .or(name_list)
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("Value");
 
     let argument_pair = ident
         .then_ignore(just(Token::PairNameSymbol))
         .then(value)
         .map(|(ident, value)| EntryArgumentAst { name: ident, value })
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("EntryArgument");
 
     let argument_list = just(Token::ListSeparator)
@@ -488,14 +546,24 @@ where
         .labelled("EntryArgumentList");
 
     let entry_kind = select! { Token::EntryKind(entry_kind) => entry_kind }
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("EntryKind");
 
     let entry = entry_kind
         .then(name)
         .then(argument_list.or_not())
-        .map(|((entry_kind, name), arguments)| EntryAst { name, kind: entry_kind, arguments: arguments.unwrap_or_default() })
-        .map_with(|node, xtra| Spanner { node, span: xtra.span() })
+        .map(|((entry_kind, name), arguments)| EntryAst {
+            name,
+            kind: entry_kind,
+            arguments: arguments.unwrap_or_default(),
+        })
+        .map_with(|node, xtra| Spanner {
+            node,
+            span: xtra.span(),
+        })
         .labelled("Entry");
 
     entry.repeated().collect::<Vec<_>>()

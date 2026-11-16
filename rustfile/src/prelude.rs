@@ -1,5 +1,5 @@
 pub use crate::{
-    error::{Error},
+    error::Error,
     model::{Entry, Name, Rustfile},
-    parser::{parse_str},
+    parser::parse_str,
 };

@@ -1,7 +1,11 @@
-use crate::error::{Error};
+use crate::error::Error;
 use regex::Regex;
 use std::{
-    borrow::{Borrow}, env, fmt::{Debug, Display}, path::PathBuf, str::FromStr
+    borrow::Borrow,
+    env,
+    fmt::{Debug, Display},
+    path::PathBuf,
+    str::FromStr,
 };
 use tracing::{error, trace};
 use url::Url;
@@ -44,6 +48,7 @@ pub enum EntryKind {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[allow(clippy::large_enum_variant)]
 pub enum Arguments {
     Toolchain(ToolchainArguments),
     Component(ComponentArguments),
@@ -199,7 +204,7 @@ impl Rustfile {
             None
         }
     }
-    
+
     pub fn find_rustfile() -> Option<PathBuf> {
         trace!("Checking environment variable ${{CARGO_RUSTFILE}}");
         if let Some(file_path) = Self::check_env_var_path("CARGO_RUSTFILE", "") {
@@ -210,7 +215,8 @@ impl Rustfile {
                 Some(file_path)
             } else {
                 trace!("Checking environment variable ${{HOME}} with path .config/cargo/Rustfile");
-                if let Some(file_path) = Self::check_env_var_path("HOME", ".config/cargo/Rustfile") {
+                if let Some(file_path) = Self::check_env_var_path("HOME", ".config/cargo/Rustfile")
+                {
                     Some(file_path)
                 } else {
                     trace!("Final fall-back is ${{PWD}}/Rustfile");
@@ -287,7 +293,11 @@ impl Rustfile {
 
     pub fn add(&self, entry: Entry) -> Result<(), Error> {
         // Check if entry already exists
-        if self.entries.iter().any(|e| e.name() == entry.name() && e.kind() == entry.kind()) {
+        if self
+            .entries
+            .iter()
+            .any(|e| e.name() == entry.name() && e.kind() == entry.kind())
+        {
             error!("Entry already exists: {} ({})", entry.name(), entry.kind());
             return Err(Error::Unknown {
                 message: format!("Entry already exists: {} ({})", entry.name(), entry.kind()),
@@ -301,7 +311,11 @@ impl Rustfile {
 
     pub fn remove(&self, entry: Entry) -> Result<(), Error> {
         // Check if entry exists
-        if !self.entries.iter().any(|e| e.name() == entry.name() && e.kind() == entry.kind()) {
+        if !self
+            .entries
+            .iter()
+            .any(|e| e.name() == entry.name() && e.kind() == entry.kind())
+        {
             error!("Entry not found: {} ({})", entry.name(), entry.kind());
             return Err(Error::Unknown {
                 message: format!("Entry not found: {} ({})", entry.name(), entry.kind()),
@@ -320,7 +334,7 @@ impl Rustfile {
 
 impl Display for Entry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} '{}'{}", self.kind(), self.name(), "")
+        write!(f, "{} '{}'", self.kind(), self.name())
     }
 }
 
@@ -330,7 +344,7 @@ impl Entry {
             line,
             name,
             arguments,
-        }        
+        }
     }
 
     pub const fn kind(&self) -> EntryKind {
@@ -434,11 +448,11 @@ impl EntryArguments for ToolchainArguments {
         let mut results = Vec::default();
 
         if let Some(profile) = &self.profile {
-            results.push(format!("--profile"));
+            results.push("--profile".to_string());
             results.push(profile.to_string());
         }
         if !self.components.is_empty() {
-            results.push(format!("--component"));
+            results.push("--component".to_string());
             results.push(
                 self.components
                     .iter()
@@ -448,7 +462,7 @@ impl EntryArguments for ToolchainArguments {
             );
         }
         if !self.targets.is_empty() {
-            results.push(format!("--profile"));
+            results.push("--profile".to_string());
             results.push(
                 self.targets
                     .iter()
@@ -463,7 +477,6 @@ impl EntryArguments for ToolchainArguments {
 }
 
 impl ToolchainArguments {
-
     pub const fn profile(&self) -> Option<&Name> {
         self.profile.as_ref()
     }
@@ -526,11 +539,11 @@ impl EntryArguments for ComponentArguments {
         let mut results = Vec::default();
 
         if let Some(target) = &self.target {
-            results.push(format!("--target"));
+            results.push("--target".to_string());
             results.push(target.to_string());
         }
         if let Some(toolchain) = &self.toolchain {
-            results.push(format!("--toolchain"));
+            results.push("--toolchain".to_string());
             results.push(toolchain.to_string());
         }
 
@@ -538,9 +551,7 @@ impl EntryArguments for ComponentArguments {
     }
 }
 
-
 impl ComponentArguments {
-
     pub const fn target(&self) -> Option<&Name> {
         self.target.as_ref()
     }
@@ -607,19 +618,19 @@ impl EntryArguments for CommandArguments {
         if let Some(all_features) = &self.all_features
             && *all_features
         {
-            results.push(format!("--all-features"));
+            results.push("--all-features".to_string());
         }
         if let Some(branch) = &self.branch {
-            results.push(format!("--branch"));
+            results.push("--branch".to_string());
             results.push(branch.to_string());
         }
         if let Some(debug) = &self.debug
             && *debug
         {
-            results.push(format!("--debug"));
+            results.push("--debug".to_string());
         }
         if !self.features.is_empty() {
-            results.push(format!("--features"));
+            results.push("--features".to_string());
             results.push(
                 self.features
                     .iter()
@@ -631,49 +642,49 @@ impl EntryArguments for CommandArguments {
         if let Some(frozen) = &self.frozen
             && *frozen
         {
-            results.push(format!("--frozen"));
+            results.push("--frozen".to_string());
         }
         if let Some(git) = &self.git {
-            results.push(format!("--git"));
+            results.push("--git".to_string());
             results.push(git.to_string());
         }
         if let Some(index) = &self.index {
-            results.push(format!("--index"));
+            results.push("--index".to_string());
             results.push(index.to_string());
         }
         if let Some(locked) = &self.locked
             && *locked
         {
-            results.push(format!("--locked"));
+            results.push("--locked".to_string());
         }
         if let Some(no_default_features) = &self.no_default_features
             && *no_default_features
         {
-            results.push(format!("--no-default-features"));
+            results.push("--no-default-features".to_string());
         }
         if let Some(offline) = &self.offline
             && *offline
         {
-            results.push(format!("--offline"));
+            results.push("--offline".to_string());
         }
         if let Some(path) = &self.path {
-            results.push(format!("--path"));
+            results.push("--path".to_string());
             results.push(path.to_string());
         }
         if let Some(registry) = &self.registry {
-            results.push(format!("--registry"));
+            results.push("--registry".to_string());
             results.push(registry.to_string());
         }
-        if let Some(rev) = &self.path {
-            results.push(format!("--rev"));
+        if let Some(rev) = &self.rev {
+            results.push("--rev".to_string());
             results.push(rev.to_string());
         }
         if let Some(tag) = &self.tag {
-            results.push(format!("--tag"));
+            results.push("--tag".to_string());
             results.push(tag.to_string());
         }
         if let Some(target) = &self.target {
-            results.push(format!("--target"));
+            results.push("--target".to_string());
             results.push(target.to_string());
         }
 
@@ -897,7 +908,7 @@ impl FromStr for Identifier {
             Err(Error::Unknown {
                 message: "Identifier::from_str; first character must be alphabetic".to_string(),
             })
-        } else if !(&s[1..])
+        } else if !(s[1..])
             .chars()
             .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_' || c == '+' || c == '@')
         {
@@ -972,7 +983,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_boolean(self) -> Option<bool> {
+    pub fn into_boolean(self) -> Option<bool> {
         match self {
             Self::Boolean(v) => Some(v),
             _ => None,
@@ -988,7 +999,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_integer(self) -> Option<i64> {
+    pub fn into_integer(self) -> Option<i64> {
         match self {
             Self::Integer(v) => Some(v),
             _ => None,
@@ -1004,7 +1015,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_float(self) -> Option<f64> {
+    pub fn into_float(self) -> Option<f64> {
         match self {
             Self::Float(v) => Some(v),
             _ => None,
@@ -1020,7 +1031,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_string(self) -> Option<String> {
+    pub fn into_string(self) -> Option<String> {
         match self {
             Self::String(v) => Some(v),
             _ => None,
@@ -1036,7 +1047,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_url(self) -> Option<Url> {
+    pub fn into_url(self) -> Option<Url> {
         match self {
             Self::Url(v) => Some(v),
             _ => None,
@@ -1052,7 +1063,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_name(self) -> Option<Name> {
+    pub fn into_name(self) -> Option<Name> {
         match self {
             Self::Name(v) => Some(v),
             _ => None,
@@ -1068,7 +1079,7 @@ impl Value {
             _ => None,
         }
     }
-    pub  fn into_name_list(self) -> Option<NameList> {
+    pub fn into_name_list(self) -> Option<NameList> {
         match self {
             Self::NameList(v) => Some(v),
             _ => None,
